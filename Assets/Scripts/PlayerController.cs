@@ -20,12 +20,22 @@ public class PlayerController : MonoBehaviour
 
     float jumpVelocity = 25;
 
+    private float interVal = 1.0f;
+
+    private float nextTime;
+
+    private bool isDamege = false;
+
+    private float sumTime = 0.0f;
+
     // Start is called before the first frame update
     void Start()
     {
         this.rigid2D = GetComponent<Rigidbody2D>();
 
         this.animator = GetComponent<Animator>();
+
+        nextTime = Time.time;
     }
 
     // Update is called once per frame
@@ -54,12 +64,41 @@ public class PlayerController : MonoBehaviour
             key = 0;
         }
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             this.animator.SetTrigger("attackTrigger");
         }
 
         rigid2D.velocity = new Vector2(walkForce * key, rigid2D.velocity.y);
-       
+
+
+        if (isDamege == true)
+        {
+            sumTime += Time.deltaTime;
+            var renderComponent = GetComponent<Renderer>();
+            if (sumTime < 2.0)
+            {
+                if (Time.time > nextTime)
+                {
+                    interVal = 0.0f;
+                    renderComponent.enabled = !renderComponent.enabled;
+                }
+            }
+            else
+            {
+                renderComponent.enabled = true;
+                isDamege = false;
+                sumTime = 0.0f;
+            }
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (gameObject.tag == "Player")
+        {
+            this.animator.SetTrigger("damegeTrigger");
+            isDamege = true;
+        }
     }
 }

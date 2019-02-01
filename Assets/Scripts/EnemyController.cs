@@ -10,10 +10,14 @@ public class EnemyController : MonoBehaviour
     // 消滅位置
     private float deadLine = -10;
 
+    private float interval = 0.2f;
+
+    Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        this.animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -28,5 +32,20 @@ public class EnemyController : MonoBehaviour
             Destroy(gameObject);
 
         }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "AttackAreaTag")
+        {
+            this.animator.SetTrigger("deathTrigger");
+
+            Invoke("Destroy", 0.3f);
+        }
+    }
+
+    void Destroy()
+    {
+        Destroy(gameObject);
     }
 }
