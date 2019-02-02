@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
 
     private float nextTime;
 
-    private bool isDamege = false;
+    private bool isDamage = false;
 
     private float sumTime = 0.0f;
 
@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
         rigid2D.velocity = new Vector2(walkForce * key, rigid2D.velocity.y);
 
 
-        if (isDamege == true)
+        if (isDamage == true)
         {
             sumTime += Time.deltaTime;
             var renderComponent = GetComponent<Renderer>();
@@ -87,18 +87,15 @@ public class PlayerController : MonoBehaviour
             else
             {
                 renderComponent.enabled = true;
-                isDamege = false;
+                isDamage = false;
                 sumTime = 0.0f;
             }
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    public void Damage(int value)
     {
-        if (gameObject.tag == "Player")
-        {
-            this.animator.SetTrigger("damegeTrigger");
-            isDamege = true;
-        }
+        this.animator.SetTrigger("damegeTrigger");
+        isDamage = true;
     }
 }

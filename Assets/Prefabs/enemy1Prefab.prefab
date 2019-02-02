@@ -110,6 +110,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b60e9c1c26fba7a4186dcacf461b33fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemydead: {fileID: 6878842162553264387, guid: d22c14043f2d2274cacdc8a9169ce2b6,
+    type: 3}
 --- !u!95 &485856546109986986
 Animator:
   serializedVersion: 3

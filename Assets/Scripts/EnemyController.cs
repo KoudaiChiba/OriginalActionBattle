@@ -4,26 +4,28 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    // キューブの移動速度
+    // 敵の移動速度
     private float speed = -0.05f;
 
     // 消滅位置
     private float deadLine = -10;
 
-    private float interval = 0.2f;
+    //消滅アニメーション用
+    public GameObject enemydead;
 
     Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
+        //敵のアニメーターコンポーネント取得
         this.animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // キューブを移動させる
+        // 敵を右に移動させる
         transform.Translate(this.speed, 0, 0);
 
         // 画面外に出たら破棄する
@@ -36,16 +38,24 @@ public class EnemyController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        //プレイヤーの攻撃範囲に当たったら
         if (other.gameObject.tag == "AttackAreaTag")
         {
-            this.animator.SetTrigger("deathTrigger");
+            //敵オブジェクト破棄
+            Destroy(gameObject);
 
-            Invoke("Destroy", 0.3f);
+            //消滅アニメーションのプレハブを生成
+            Instantiate(enemydead, transform.position, transform.rotation);
         }
-    }
-
-    void Destroy()
-    {
-        Destroy(gameObject);
+        //プレイヤーに当たったら
+        else if(other.gameObject.tag == "Player")
+        {
+            var go = GameObject.FindGameObjectWithTag("Player");
+            var p = go.GetComponent<PlayerController>();
+            if(p)
+            {
+                p.Damage(1);
+            }
+        }
     }
 }
