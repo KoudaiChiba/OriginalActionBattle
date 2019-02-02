@@ -10,17 +10,13 @@ public class PlayerController : MonoBehaviour
 
     private float groundLevel = -3.0f;
 
-    private float dump = 0.8f;
-
     private float walkForce = 10.0f;
 
-    private float deadLine = -7.0f;
+    private float deadLine = -9.0f;
 
-    private float overLine = 8.0f;
+    private float overLine = 10.0f;
 
     float jumpVelocity = 25;
-
-    private float interVal = 1.0f;
 
     private float nextTime;
 
@@ -81,7 +77,6 @@ public class PlayerController : MonoBehaviour
                 gameObject.layer = LayerMask.NameToLayer("PlayerDamage");
                 if (Time.time > nextTime)
                 {
-                    interVal = 0.0f;
                     renderComponent.enabled = !renderComponent.enabled;
                 }
             }

@@ -7,9 +7,9 @@ public class BackgroundController : MonoBehaviour
     // スクロール速度
     private float scrollSpeed = -0.03f;
     // 背景終了位置
-    private float deadLine = -18;
+    private float deadLine = -21.0f;
     // 背景開始位置
-    private float startLine = 20f;
+    private float startLine = 21.0f;
 
     // Start is called before the first frame update
     void Start()

@@ -8,7 +8,7 @@ public class EnemyController : MonoBehaviour
     private float speed = -0.05f;
 
     // 消滅位置
-    private float deadLine = -10;
+    private float deadLine = -11;
 
     //消滅アニメーション用
     public GameObject enemydead;
@@ -50,6 +50,8 @@ public class EnemyController : MonoBehaviour
         //プレイヤーに当たったら
         else if(other.gameObject.tag == "Player")
         {
+            GameObject generator = GameObject.Find("UIGenerator");
+            generator.GetComponent<UIController>().DecreaseHp();
             var go = GameObject.FindGameObjectWithTag("Player");
             var p = go.GetComponent<PlayerController>();
             if(p)

@@ -7,10 +7,10 @@ using UnityEngine.SceneManagement;
 public class UIController : MonoBehaviour
 {
     // ゲームオーバテキスト
-    private GameObject gameOverText;
+    public GameObject gameOverText;
 
     // 走行距離テキスト
-    private GameObject runLengthText;
+    public GameObject runLengthText;
 
     // 走った距離
     private float len = 0;
@@ -21,12 +21,18 @@ public class UIController : MonoBehaviour
     // ゲームオーバの判定
     private bool isGameOver = false;
 
+    public GameObject hpFill;
+
+    public GameObject player;
+
     // Start is called before the first frame update
     void Start()
     {
         // シーンビューからオブジェクトの実体を検索する
         this.gameOverText = GameObject.Find("GameOver");
         this.runLengthText = GameObject.Find("RunLength");
+        this.hpFill = GameObject.Find("HpFill");
+        this.player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -45,7 +51,7 @@ public class UIController : MonoBehaviour
         if (this.isGameOver == true)
         {
             // クリックされたらシーンをロードする（追加）
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 //GameSceneを読み込む（追加）
                 SceneManager.LoadScene("GameScene");
@@ -58,5 +64,15 @@ public class UIController : MonoBehaviour
         // ゲームオーバになったときに、画面上にゲームオーバを表示する
         this.gameOverText.GetComponent<Text>().text = "GameOver";
         this.isGameOver = true;
+        Destroy(player.gameObject);
+    }
+
+    public void DecreaseHp()
+    {
+        this.hpFill.GetComponent<Image>().fillAmount -= 0.2f;
+        if(hpFill.GetComponent<Image>().fillAmount <= 0.1)
+        {
+            GameOver();
+        }
     }
 }
