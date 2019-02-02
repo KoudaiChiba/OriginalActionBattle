@@ -78,6 +78,7 @@ public class PlayerController : MonoBehaviour
             var renderComponent = GetComponent<Renderer>();
             if (sumTime < 2.0)
             {
+                gameObject.layer = LayerMask.NameToLayer("PlayerDamage");
                 if (Time.time > nextTime)
                 {
                     interVal = 0.0f;
@@ -87,6 +88,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 renderComponent.enabled = true;
+                gameObject.layer = LayerMask.NameToLayer("Player");
                 isDamage = false;
                 sumTime = 0.0f;
             }
@@ -95,7 +97,7 @@ public class PlayerController : MonoBehaviour
 
     public void Damage(int value)
     {
-        this.animator.SetTrigger("damegeTrigger");
+        this.animator.SetTrigger("damageTrigger");
         isDamage = true;
     }
 }
