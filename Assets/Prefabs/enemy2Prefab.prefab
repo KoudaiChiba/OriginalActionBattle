@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3275389104949120773}
   m_Layer: 11
   m_Name: enemy2Prefab
-  m_TagString: Untagged
+  m_TagString: Enemy2Tag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,6 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemydead: {fileID: 6878842162553264387, guid: d22c14043f2d2274cacdc8a9169ce2b6,
     type: 3}
+  UIgenerator: {fileID: 0}
 --- !u!95 &3275389104949120773
 Animator:
   serializedVersion: 3

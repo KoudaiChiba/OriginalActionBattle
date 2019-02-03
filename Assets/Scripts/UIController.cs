@@ -9,15 +9,6 @@ public class UIController : MonoBehaviour
     // ゲームオーバテキスト
     public GameObject gameOverText;
 
-    // 走行距離テキスト
-    public GameObject runLengthText;
-
-    // 走った距離
-    private float len = 0;
-
-    // 走る速度
-    private float speed = 0.03f;
-
     // ゲームオーバの判定
     private bool isGameOver = false;
 
@@ -25,27 +16,37 @@ public class UIController : MonoBehaviour
 
     public GameObject player;
 
+    public GameObject timerText;
+
+    public GameObject scoreText;
+
+    private float time = 30.0f;
+
+    int score = 0;
+
     // Start is called before the first frame update
     void Start()
     {
         // シーンビューからオブジェクトの実体を検索する
         this.gameOverText = GameObject.Find("GameOver");
-        this.runLengthText = GameObject.Find("RunLength");
         this.hpFill = GameObject.Find("HpFill");
         this.player = GameObject.Find("Player");
+        this.timerText = GameObject.Find("Time");
+        this.scoreText = GameObject.Find("Score");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (this.isGameOver == false)
+        this.time -= Time.deltaTime;
+        this.timerText.GetComponent<Text>().text = this.time.ToString("F1");
+        if(this.time <= 0)
         {
-            // 走った距離を更新する
-            this.len += this.speed;
-
-            // 走った距離を表示する
-            this.runLengthText.GetComponent<Text>().text = "Distance:  " + len.ToString("F2") + "m";
+            this.time = 0;
+            GameOver();
         }
+
+        this.scoreText.GetComponent<Text>().text = "Score: " + this.score.ToString();
 
         // ゲームオーバになった場合
         if (this.isGameOver == true)
@@ -74,5 +75,15 @@ public class UIController : MonoBehaviour
         {
             GameOver();
         }
+    }
+
+    public void Skeleton()
+    {
+        this.score += 10;
+    }
+
+    public void ghost()
+    {
+        this.score += 20;
     }
 }

@@ -13,11 +13,15 @@ public class EnemyController : MonoBehaviour
     //消滅アニメーション用
     public GameObject enemydead;
 
+    GameObject UIgenerator;
+
     Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
+        this.UIgenerator = GameObject.Find("UIGenerator");
+
         //敵のアニメーターコンポーネント取得
         this.animator = GetComponent<Animator>();
     }
@@ -41,11 +45,26 @@ public class EnemyController : MonoBehaviour
         //プレイヤーの攻撃範囲に当たったら
         if (other.gameObject.tag == "AttackAreaTag")
         {
-            //敵オブジェクト破棄
-            Destroy(gameObject);
+            if(gameObject.tag == "Enemy1Tag")
+            {
+                this.UIgenerator.GetComponent<UIController>().Skeleton();
 
-            //消滅アニメーションのプレハブを生成
-            Instantiate(enemydead, transform.position, transform.rotation);
+                //敵オブジェクト破棄
+                Destroy(gameObject);
+
+                //消滅アニメーションのプレハブを生成
+                Instantiate(enemydead, transform.position, transform.rotation);
+            }
+            else if(gameObject.tag == "Enemy2Tag")
+            {
+                this.UIgenerator.GetComponent<UIController>().ghost();
+
+                //敵オブジェクト破棄
+                Destroy(gameObject);
+
+                //消滅アニメーションのプレハブを生成
+                Instantiate(enemydead, transform.position, transform.rotation);
+            }
         }
         //プレイヤーに当たったら
         else if(other.gameObject.tag == "Player")
